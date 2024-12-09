@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STORM-DEV</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Apply dragElement to all elements with the class "draggable"
+            document.querySelectorAll(".draggable").forEach(dragElement);
+
+            document.querySelectorAll(".hidden-div").forEach(div => {
+                div.style.display = "none";
+            });
+
+            // Add event listeners to toggle visibility of hidden divs
+            document.querySelectorAll(".link_button").forEach(button => {
+                button.addEventListener("click", function () {
+                    const targetId = this.dataset.target; // Get the target ID from the data attribute
+                    const hiddenDiv = document.getElementById(targetId);
+                    if (hiddenDiv) {
+                        hiddenDiv.style.display = hiddenDiv.style.display === "none" ? "block" : "none";
+                    }
+                });
+            });
+        });
+
+        function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+
+            // Header element for dragging
+            const header = elmnt.querySelector(".draggable-header");
+
+            if (header) {
+                header.onmousedown = dragMouseDown;
+            } else {
+                elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                document.onmouseup = closeDragElement;
+                document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+                e = e || window.event;
+                e.preventDefault();
+                pos1 = pos3 - e.clientX;
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX;
+                pos4 = e.clientY;
+                elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+                elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+                document.onmouseup = null;
+                document.onmousemove = null;
+            }
+        }
+    </script>
+    <style>
+        @font-face {
+            font-family: 'arcadeclassic';
+            src: url('fonts/arcadeclassic/ARCADECLASSIC.TTF');
+        }
+
+        @font-face {
+            font-family: 'technology';
+            src: url('fonts/technology/Technology.ttf');
+        }
+
+        body {
+            font-family: 'arcadeclassic';
+            background-color: black;
+        }
+
+        .link_button {
+            font-family: 'arcadeclassic';
+            width: 100px;
+            padding
+        }
+
+        .draggable {
+            position: absolute;
+            z-index: 9;
+            background-color: #f1f1f1;
+            border: 1px solid #d3d3d3;
+            text-align: center;
+            width: auto;
+        }
+
+        .draggable-header {
+            padding: 10px;
+            cursor: move;
+            z-index: 10;
+            background-color: #5e0275;
+            color: #fff;
+        }
+
+        .hidden-div {
+            display: none;
+        }
+
+        .file{
+            width: 50px;
+            height: 50px;
+        }
+
+        .file_text{
+            padding-top: 1px;
+            padding-bottom: 0px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="draggable" style="top: 50px; left: 50px; width: 200px;">
+    <div class="draggable-header">c:/home</div>
+    <br>
+    <button class="link_button" data-target="twitchDiv">/Twitch.exe</button>
+    <br><br>
+    <button class="link_button" data-target="linksdiv">/links.txt</button>
+    <br><br>
+    <button class="link_button" data-target="downloadsdiv">/downloads</button>
+    <br><br>
+
+
+</div>
+
+<div class="draggable hidden-div" id="downloadsdiv" style="top: 200px; left: 200px; width: 400px;">
+    <div class="draggable-header">c:/home/downloads</div>
+    <div><button class="file"></button><p class="file_text">test</p></div>
+    </div>
+
+<div class="draggable hidden-div" id="linksdiv" style="top: 200px; left: 200px;">
+    <div class="draggable-header">c:/home/links.txt</div>
+    <br>
+    <button class="link_button">Twitch</button>
+    <br><br>
+    <br>
+    <button class="link_button">Youtube</button>
+    <br><br>
+    <br>
+    <button class="link_button">Blue sky</button>
+    <br><br>
+    <br>
+    <button class="link_button">Twitter</button>
+    <br><br>
+    <br>
+    <button class="link_button">Github</button>
+    <br><br>
+    </div>
+
+<div class="draggable hidden-div" id="twitchDiv" style="top: 200px; left: 200px; background-color: black;">
+    <div class="draggable-header">c:/home/Twitch.exe</div>
+    <br>
+    <button>View on Twitch</button>
+    <div id="twitch-embed"></div>
+
+        <!-- Load the Twitch embed script -->
+        <script src="https://embed.twitch.tv/embed/v1.js"></script>
+
+        <!-- Create a Twitch.Embed object that will render within the "twitch-embed" element. -->
+        <script type="text/javascript">
+        var embed = new Twitch.Embed("twitch-embed", {
+            width: 754,
+            height: 380,
+            channel: "STORM_VTUBER",
+            layout: "video",
+            autoplay: false,
+        });
+
+        embed.addEventListener(Twitch.Embed.VIDEO_READY, () => {
+            var player = embed.getPlayer();
+            player.play();
+        });
+        </script>
+    <br><br>
+</div>
+
+<!--  draggable layout/template :D
+<div class="draggable" style="top: 200px; left: 200px;">
+    <div class="draggable-header"></div>
+</div> 
+
+hidden layou/template
+<div class="draggable hidden-div" id="" style="top: 200px; left: 200px;">
+    <div class="draggable-header"></div>
+    </div>
+-->
+
+</body>
+</html>
