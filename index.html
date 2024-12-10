@@ -64,56 +64,72 @@
         }
     </script>
     <style>
-        @font-face {
-            font-family: 'arcadeclassic';
-            src: url('fonts/arcadeclassic/ARCADECLASSIC.TTF');
-        }
+@font-face {
+    font-family: 'arcadeclassic';
+    src: url('fonts/arcadeclassic/ARCADECLASSIC.TTF');
+}
 
-        @font-face {
-            font-family: 'technology';
-            src: url('fonts/technology/Technology.ttf');
-        }
+@font-face {
+    font-family: 'technology';
+    src: url('fonts/technology/Technology.ttf');
+}
 
-        body {
-            font-family: 'arcadeclassic';
-            background-color: black;
-        }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 
-        .link_button {
-            font-family: 'arcadeclassic';
-            width: 100px;
-        }
+body {
+    font-family: 'arcadeclassic';
+    background-image: url("images/background.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-color: black;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-attachment: fixed;
+    background-position: bottom;
+}
 
-        .draggable {
-            position: absolute;
-            z-index: 9;
-            background-color: #f1f1f1;
-            border: 1px solid #d3d3d3;
-            text-align: center;
-            width: auto;
-        }
+.link_button {
+    font-family: 'arcadeclassic';
+    width: 100px;
+}
 
-        .draggable-header {
-            padding: 10px;
-            cursor: move;
-            z-index: 10;
-            background-color: #5e0275;
-            color: #fff;
-        }
+.draggable {
+    position: absolute;
+    z-index: 9;
+    background-color: rgba(241, 241, 241, 0.9); /* Adds slight transparency */
+    border: 1px solid #d3d3d3;
+    text-align: center;
+    width: auto;
+}
 
-        .hidden-div {
-            display: none;
-        }
+.draggable-header {
+    padding: 10px;
+    cursor: move;
+    z-index: 10;
+    background-color: #5e0275;
+    color: #fff;
+}
 
-        .file{
-            width: 50px;
-            height: 50px;
-        }
+.hidden-div {
+    display: none;
+}
 
-        .file_text{
-            padding-top: 1px;
-            padding-bottom: 0px;
-        }
+.file {
+    width: 50px;
+    height: 50px;
+}
+
+.file_text {
+    padding-top: 1px;
+    padding-bottom: 0px;
+}
     </style>
 </head>
 <body>
