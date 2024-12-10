@@ -155,6 +155,9 @@ body {
 <div class="draggable hidden-div" id="linksdiv" style="top: 200px; left: 200px;">
     <div class="draggable-header">c:/home/links.txt</div>
     <br>
+    <button class="link_button" data-target="linksdiv">Close</button>
+    <br>
+    <br>
     <br>
     <button type="button" class="link_button" id="linkbutton" onclick="window.open('https://www.twitch.tv/storm_vtuber', '_blank');">Twitch</button>
     <br>
@@ -175,7 +178,7 @@ body {
 <div class="draggable hidden-div" id="twitchDiv" style="top: 200px; left: 200px; background-color: black;">
     <div class="draggable-header">c:/home/Twitch.exe</div>
     <br>
-    <button>View on Twitch</button>
+    <button type="button" class="link_button" id="linkbutton" onclick="window.open('https://www.twitch.tv/storm_vtuber', '_blank');">View on Twitch</button> <button class="link_button" data-target="twitchDiv"> Close Page </button>
     <div id="twitch-embed"></div>
 
         <!-- Load the Twitch embed script -->
