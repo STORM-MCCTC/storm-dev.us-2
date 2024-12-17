@@ -9,11 +9,11 @@
         document.addEventListener("DOMContentLoaded", function () {
             // Apply dragElement to all elements with the class "draggable"
             document.querySelectorAll(".draggable").forEach(dragElement);
-
+    
             document.querySelectorAll(".hidden-div").forEach(div => {
                 div.style.display = "none";
             });
-
+    
             // Add event listeners to toggle visibility of hidden divs
             document.querySelectorAll(".link_button").forEach(button => {
                 button.addEventListener("click", function () {
@@ -24,20 +24,53 @@
                     }
                 });
             });
+    
+            // CMD Input logic
+            const cmdInput = document.getElementById('cmd-input');
+            const outputDiv = document.getElementById('cmd-output');
+    
+            if (cmdInput && outputDiv) {
+                cmdInput.addEventListener('keypress', function (e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault(); // Prevent any default behavior
+                        const input = this.value.trim();
+    
+                        // Handle commands
+                        if (input.toLowerCase() === 'help') {
+                            outputDiv.innerHTML += "<br>Available commands: help, about, exit, verison";
+                        } else if (input.toLowerCase() === 'about') {
+                            outputDiv.innerHTML += "<br>STORM-OS v0.1 - Created by STORM-Dev";
+                        } else if (input.toLowerCase() === 'verison') {
+                            outputDiv.innerHTML += "<br>STORM-OS v0.1"; 
+                        } else if (input.toLowerCase() === 'run') {
+                            outputDiv.innerHTML += "<br>WIP";
+                        } else if (input.toLowerCase() === 'exit') {
+                            document.getElementById('cmd').style.display = 'none';
+                        } else {
+                            outputDiv.innerHTML += `<br>'${input}' is not recognized as a command.`;
+                        }
+    
+                        this.value = ''; // Clear input
+                        outputDiv.scrollTop = outputDiv.scrollHeight; // Scroll to bottom
+                    }
+                });
+            } else {
+                console.error("CMD input or output element not found.");
+            }
         });
-
+    
         function dragElement(elmnt) {
             var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-
+    
             // Header element for dragging
             const header = elmnt.querySelector(".draggable-header");
-
+    
             if (header) {
                 header.onmousedown = dragMouseDown;
             } else {
                 elmnt.onmousedown = dragMouseDown;
             }
-
+    
             function dragMouseDown(e) {
                 e = e || window.event;
                 e.preventDefault();
@@ -46,7 +79,7 @@
                 document.onmouseup = closeDragElement;
                 document.onmousemove = elementDrag;
             }
-
+    
             function elementDrag(e) {
                 e = e || window.event;
                 e.preventDefault();
@@ -57,7 +90,7 @@
                 elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
                 elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
             }
-
+    
             function closeDragElement() {
                 document.onmouseup = null;
                 document.onmousemove = null;
@@ -214,6 +247,18 @@ body {
         </script>
     <br><br>
 </div>
+
+<div class="draggable hidden-div" id="cmd" style="top: 200px; left: 200px; width: 400px;">
+    <div class="draggable-header">c:/home/cmd</div>
+    <div style="padding: 10px; font-family: 'technology'; background-color: black; color: green; text-align: left; height: 200px; overflow: auto;">
+        <p style="margin: 0;">C:\home\cmd> Welcome to STORM-OS</p>
+        <p style="margin: 0;">C:\home\cmd> Type 'help' for commands</p>
+        <p style="margin: 0;" id="cmd-output"></p>
+        <!--Chat Gpt did most of this but omfg i love how this works and looks-->
+        <input type="text" id="cmd-input" placeholder="Enter command..." style="width: 100%; background: black; color: green; border: none; outline: none; font-family: 'technology'; margin-top: 10px;">
+    </div>
+</div>
+
 
 <!--  draggable layout/template :D
 <div class="draggable" style="top: 200px; left: 200px;">
