@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STORM-DEV</title>
+    <title>STORM-OS V0.1</title>
+    <link rel="icon" type="image/x-icon" href="images/windows_95_all_icons_by_vovan29_ddbo0ro/Windows 95 ALL ICONS v1.1/All [Without duplicates]/Earth (4 colors).ico">
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             // Apply dragElement to all elements with the class "draggable"
@@ -66,12 +67,17 @@
     <style>
 @font-face {
     font-family: 'arcadeclassic';
-    src: url('fonts/arcadeclassic/ARCADECLASSIC.TTF');
+    src: url('fonts/arcadeclassic/ARCADECLASSIC.ttf');
 }
 
 @font-face {
     font-family: 'technology';
     src: url('fonts/technology/Technology.ttf');
+}
+
+.pixelated {
+  image-rendering: pixelated; /* Modern browsers */
+  -ms-interpolation-mode: nearest-neighbor; /* Internet Explorer, lol */
 }
 
 html, body {
@@ -124,6 +130,8 @@ body {
 .file {
     width: 50px;
     height: 50px;
+    border-style: none;
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .file_text {
@@ -143,13 +151,18 @@ body {
     <br><br>
     <button class="link_button" data-target="downloadsdiv">/downloads</button>
     <br><br>
+    <button class="link_button" data-target="cmd">/cmd</button>
+    <br><br>
 
 
 </div>
 
 <div class="draggable hidden-div" id="downloadsdiv" style="top: 200px; left: 200px; width: 400px;">
     <div class="draggable-header">c:/home/downloads</div>
-    <div><button class="file"></button><p class="file_text">test</p></div>
+        <div style="display: flex; gap: 10px; align-items: center; font-size: x-small; padding-top: 5px;">
+            <div><button class="file"><img class="pixelated" src="images/windows_95_all_icons_by_vovan29_ddbo0ro/Windows 95 ALL ICONS v1.1/All [Without duplicates]/Folder.ico" ></button><p class="file_text">KSMP_mods.zip</p></div>
+            <div><button class="file"><img class="pixelated" src="images/windows_95_all_icons_by_vovan29_ddbo0ro/Windows 95 ALL ICONS v1.1/All [Without duplicates]/Folder.ico" ></button><p class="file_text">Stream_assets.zip</p></div>
+        </div>
     </div>
 
 <div class="draggable hidden-div" id="linksdiv" style="top: 200px; left: 200px;">
@@ -172,7 +185,7 @@ body {
     <br>
     <br>
     <br>
-    <img src="images/menhera-happy.gif">
+    <img class="pixelated" src="images/menhera-happy.gif">
     </div>
 
 <div class="draggable hidden-div" id="twitchDiv" style="top: 200px; left: 200px; background-color: black;">
@@ -207,7 +220,7 @@ body {
     <div class="draggable-header"></div>
 </div> 
 
-hidden layou/template
+hidden layout/template
 <div class="draggable hidden-div" id="" style="top: 200px; left: 200px;">
     <div class="draggable-header"></div>
     </div>
