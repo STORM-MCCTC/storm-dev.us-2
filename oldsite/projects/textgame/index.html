@@ -1,0 +1,242 @@
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>storm-dev.us/projects/textgame</title>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+
+<script>
+    let money = 0;
+    let coal = 0;
+    let iron = 0;
+    let copper = 0;
+    let steel = 0;
+
+    let coal_mine = 0;
+    let iron_mine = 0;
+    let copper_mine = 0;
+    let small_factory = 0;
+    let steel_mill = 0;
+    let large_factory = 0;
+
+    let coal_mine_price = 16;
+    let iron_mine_price = 32;
+    let copper_mine_price = 64;
+    let small_factory_price = 64;
+    let steel_mill_price = 128;
+    let large_factory_price = 128;
+
+    function onloadalert() {
+        window.alert("Main Script Loaded");
+        updateButtonTexts(); // Update button prices on load
+    }
+
+    function click_button() {
+        money += 1;
+        document.getElementById("money_count").innerHTML = `Money: ${money}`;
+    }
+
+    function buy_coal_factory() {
+        if (money >= coal_mine_price) {
+            money -= coal_mine_price;
+            coal_mine += 1;
+            coal_mine_price *= 2;  // Double the price after purchase
+            document.getElementById("money_count").innerHTML = `Money: ${money}`;
+            document.getElementById("coal_factory_count").innerHTML = `${coal_mine} Owned | ${coal} Coal`;
+            updateButtonTexts();
+        }
+    }
+
+    function buy_iron_factory() {
+        if (money >= iron_mine_price) {
+            money -= iron_mine_price;
+            iron_mine += 1;
+            iron_mine_price *= 2;  // Double the price after purchase
+            document.getElementById("money_count").innerHTML = `Money: ${money}`;
+            document.getElementById("iron_factory_count").innerHTML = `${iron_mine} Owned | ${iron} Iron`;
+            updateButtonTexts();
+        }
+    }
+
+    function buy_copper_factory() {
+        if (money >= copper_mine_price) {
+            money -= copper_mine_price;
+            copper_mine += 1;
+            copper_mine_price *= 2;  // Double the price after purchase
+            document.getElementById("money_count").innerHTML = `Money: ${money}`;
+            document.getElementById("copper_factory_count").innerHTML = `${copper_mine} Owned | ${copper} Copper`;
+            updateButtonTexts();
+        }
+    }
+
+    function buy_small_factory() {
+        if (money >= small_factory_price && iron >= 10) {
+            money -= small_factory_price;
+            iron -= 10;
+            small_factory += 1;
+            small_factory_price *= 2;  // Double the price after purchase
+            document.getElementById("money_count").innerHTML = `Money: ${money}`;
+            document.getElementById("small_factory_count").innerHTML = `${small_factory} Owned`;
+            updateButtonTexts();
+        }
+    }
+
+    function buy_steel_factory() {
+        if (money >= steel_mill_price && iron >= 20 && coal >= 1) {
+            money -= steel_mill_price;
+            iron -= 20;
+            coal -= 1;
+            steel_mill += 1;
+            steel_mill_price *= 2;  // Double the price after purchase
+            document.getElementById("money_count").innerHTML = `Money: ${money}`;
+            document.getElementById("Large_steel_count").innerHTML = `${steel_mill} Owned | ${steel} Steel`;
+            updateButtonTexts();
+        }
+    }
+
+    function buy_large_factory() {
+        if (money >= large_factory_price && steel >= 50) {
+            money -= large_factory_price;
+            steel -= 50;
+            large_factory += 1;
+            large_factory_price *= 2;  // Double the price after purchase
+            document.getElementById("money_count").innerHTML = `Money: ${money}`;
+            document.getElementById("large_factory_count").innerHTML = `${large_factory} Owned`;
+            updateButtonTexts();
+        }
+    }
+
+    function startAutoCollection() {
+        setInterval(() => {
+            money += small_factory * 1;  // Each small factory generates 1 money per second
+            money += large_factory * 10;  // Each large factory generates 10 money per second
+            coal += coal_mine;  // Each coal mine produces 1 coal per second
+            iron += iron_mine;  // Each iron mine produces 1 iron per second
+            copper += copper_mine;  // Each copper mine produces 1 copper per second
+            if (iron > 0 && coal > 0) {
+                steel += steel_mill;  // Each steel mill produces 1 steel per second
+                iron -= steel_mill;  // Each steel mill uses 1 iron per second
+                coal -= steel_mill;  // Each steel mill uses 1 coal per second
+            }
+            document.getElementById("money_count").innerHTML = `Money: ${money}`;
+            document.getElementById("coal_factory_count").innerHTML = `${coal_mine} Owned | ${coal} Coal`;
+            document.getElementById("iron_factory_count").innerHTML = `${iron_mine} Owned | ${iron} Iron`;
+            document.getElementById("copper_factory_count").innerHTML = `${copper_mine} Owned | ${copper} Copper`;
+            document.getElementById("Large_steel_count").innerHTML = `${steel_mill} Owned | ${steel} Steel`;
+        }, 1000);
+    }
+
+    function updateButtonTexts() {
+        document.querySelector('button[onclick="buy_coal_factory()"]').innerHTML = `Buy Coal Mine (${coal_mine_price} Money)`;
+        document.querySelector('button[onclick="buy_iron_factory()"]').innerHTML = `Buy Iron Mine (${iron_mine_price} Money)`;
+        document.querySelector('button[onclick="buy_copper_factory()"]').innerHTML = `Buy Copper Mine (${copper_mine_price} Money)`;
+        document.querySelector('button[onclick="buy_small_factory()"]').innerHTML = `Buy Small Factory (${small_factory_price} Money - 10 Iron)`;
+        document.querySelector('button[onclick="buy_steel_factory()"]').innerHTML = `Buy Steel Mill (${steel_mill_price} Money - 20 Iron - 1 Coal)`;
+        document.querySelector('button[onclick="buy_large_factory()"]').innerHTML = `Buy Large Factory (${large_factory_price} Money - 50 Steel)`;
+    }
+
+    startAutoCollection();
+</script>
+    
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+
+</head>
+<body onload="onloadalert()">
+    <!-- <button onclick="dev_button()">Development Button</button>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content">
+    <p>Gives player +1000 of all resources</p><p>this is for testing only</p></div></div> -->
+    <a onclick="window.open('https://www.storm-dev.us');">Home</a>
+    <p id="energy_display">Energy: 0</p>
+    <br>
+    <br>
+    <button onclick="click_button()">Manual labor +1</button>
+    <p id="money_count" style="display: inline-block;">Money: 0</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Gives player +1 money on click.</p></div></div>
+    <br>
+    <button onclick="buy_coal_factory()">Buy Coal Mine (15 Money)</button>
+    <p id="coal_factory_count" style="display: inline-block;">0 owned | 0 coal</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Mines +1/s Coal</p></div></div>
+    <br>
+    <button onclick="buy_iron_factory()">Buy Iron Mine (25 Money)</button>
+    <p id="iron_factory_count" style="display: inline-block;">0 owned | 0 iron</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Mines +1/s Iron</p></div></div>
+    <br>
+    <button onclick="buy_copper_factory()">Buy copper Mine (50 Money)</button>
+    <p id="copper_factory_count" style="display: inline-block;">0 owned | 0 copper</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Mines +1/s Copper</p></div></div>
+    <br>
+    <button onclick="buy_small_factory()">Buy Small Factory (50 Money - 10 Iron)</button>
+    <p id="small_factory_count" style="display: inline-block;">0 owned</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Makes +1/s Money</p></div></div>
+    <br>
+    <button onclick="buy_steel_factory()">Buy Steel Mill (100 Money + 20 Iron)</button> 
+    <p id="Large_steel_count" style="display: inline-block;">0 owned | 0 Steel</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Makes +1/s Steel</p><p> Uses -1/s coal and -1/s Iron</p></div></div>
+    <br>
+    <button onclick="buy_large_factory()">Buy Large Factory (100 Money + 50 steel)</button>
+    <p id="large_factory_count" style="display: inline-block;">0 owned</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Makes +10/s Money</p></div></div>
+    <br>
+    <button onclick="buy_energy_factory()">Buy LV Power-Plant (1000 Money + 50 steel + 100 copper)</button>
+    <p id="energy_factory_count" style="display: inline-block;">0 owned</p>
+    <div class="dropdown"><span> |More info|</span><div class="dropdown-content"><p>Makes +10/s Energy</p></div></div>
+
+<!--------------------------------------------------------------------------------------------------------------------------------------->
+
+<style>
+body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: left;
+        }
+
+        button {
+            background-color: #1f1f1f;
+            color: #ffffff;
+            border: 1px solid #333;
+            border-radius: 5px;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background-color: #333;
+            transform: scale(1.05);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #1f1f1f;
+            border: 1px solid #333;
+            min-width: 160px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            z-index: 1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        p {
+            margin: 5px;
+        }
+    </style>
+
+</body>
+</html>
