@@ -29,6 +29,7 @@
             const cmdInput = document.getElementById('cmd-input');
             const outputDiv = document.getElementById('cmd-output');
     
+            // MAKE CMD BETTER. dicinarieys maybe?
             if (cmdInput && outputDiv) {
                 cmdInput.addEventListener('keypress', function (e) {
                     if (e.key === 'Enter') {
@@ -119,6 +120,8 @@
       "url('images/Vortec space.jpg')",
       "url('images/Wind.jpg')",
     ];
+
+    //add localStorage, or well fix it i guess
     let currentBackgroundIndex = parseInt(localStorage.getItem("backgroundIndex")) || 0;
 
     function cyclebackground() {
@@ -148,12 +151,12 @@ window.onload = function() {
   });
     </script>
     <style>
-@font-face {
-    font-family: 'arcadeclassic';
+@font-face {/*basic text font*/
+    font-family: 'arcadeclassic'; 
     src: url('fonts/arcadeclassic/ARCADECLASSIC.ttf');
 }
 
-@font-face {
+@font-face {/*font for terminol*/
     font-family: 'technology';
     src: url('fonts/technology/Technology.ttf');
 }
@@ -235,6 +238,8 @@ footer#taskbar {
     z-index: 999;
 }
 
+/*this CRT effect was stolen from Alec Lownes work so go take a look at his stuff*/
+/*https://aleclownes.com/2017/02/01/crt-display.html*/
 @keyframes flicker {
   0% {
     opacity: 0.27861;
