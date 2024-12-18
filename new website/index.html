@@ -98,6 +98,54 @@
                 document.onmousemove = null;
             }
         }
+
+    // List of background images to cycle through
+    const backgrounds = [
+      "url('images/Ascent.jpg')",
+      "url('images/Autumn.jpg')",
+      "url('images/Azul.jpg')",
+      "url('images/bliss.jpg')",
+      "url('images/Crystal.jpg')",
+      "url('images/Follow.jpg')",
+      "url('images/Friend.jpg')",
+      "url('images/Home.jpg')",
+      "url('images/Moon flower.jpg')",
+      "url('images/Peace.jpg')",
+      "url('images/Power.jpg')",
+      "url('images/Red moon desert.jpg')",
+      "url('images/Ripple.jpg')",
+      "url('images/Stonehenge.jpg')",
+      "url('images/Tulips.jpg')",
+      "url('images/Vortec space.jpg')",
+      "url('images/Wind.jpg')",
+    ];
+    let currentBackgroundIndex = parseInt(localStorage.getItem("backgroundIndex")) || 0;
+
+    function cyclebackground() {
+    currentBackgroundIndex = (currentBackgroundIndex + 1) % backgrounds.length;
+    document.body.style.backgroundImage = backgrounds[currentBackgroundIndex];
+    localStorage.setItem("backgroundIndex", currentBackgroundIndex);
+}
+
+// Add event listener to the button
+document.addEventListener("DOMContentLoaded", function () {
+    const button = document.getElementById("cycle-background");
+    if (button) {
+        button.addEventListener("click", cyclebackground);
+    } else {
+        console.error("Cycle Background button not found.");
+    }
+
+window.onload = function() {
+    applyBackground(); // Apply the saved background
+    const button = document.getElementById("cycle-background");
+    if (button) {
+        button.addEventListener("click", cyclebackground);
+    } else {
+        console.error("Cycle Background button not found.");
+    }
+};
+  });
     </script>
     <style>
 @font-face {
@@ -124,7 +172,7 @@ html, body {
 
 body {
     font-family: 'arcadeclassic';
-    background-image: url(images/bliss.jpg);
+    background-image: url('images/bliss.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
@@ -360,6 +408,8 @@ footer#taskbar {
     <br><br>
     <button class="link_button" data-target="downloadsdiv">/downloads</button>
     <br><br>
+    <button class="link_button" data-target="settings">/setting</button>
+    <br><br>
     <button class="link_button" data-target="cmd">/cmd</button>
     <br><br>
 
@@ -434,6 +484,11 @@ footer#taskbar {
         <!--Chat Gpt did most of this but omfg i love how this works and looks-->
         <input class="crt" type="text" id="cmd-input" placeholder="Enter command..." style="width: 100%; background: black; color: green; border: none; outline: none; font-family: 'technology'; margin-top: 10px;">
     </div>
+</div>
+
+<div class="draggable hidden-div crt" id="settings" style="top: 200px; left: 200px;">
+  <div class="draggable-header">Settings</div>
+  <button class="link_button" id="cycle-background" onclick="cyclebackground">Cycle Background image</button>
 </div>
 
 <footer id="taskbar" class="crt">
